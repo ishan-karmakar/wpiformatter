@@ -1,4 +1,4 @@
-package ik.wpiformatter;
+package io.github.ishankarmakar.wpiformatter;
 
 import org.gradle.api.Project;
 

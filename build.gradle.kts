@@ -8,12 +8,10 @@
 plugins {
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     `java-gradle-plugin`
-
-    `maven-publish`
+    id("com.vanniktech.maven.publish") version "0.34.0"
 }
 
-group = "ik.wpiformatter"
-version = "1.0"
+val artifactId = "io.github.ishan-karmakar.wpiformatter"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -30,8 +28,8 @@ dependencies {
 gradlePlugin {
     plugins {
         create("wpiformatter") {
-            id = "ik.wpiformatter"
-            implementationClass = "ik.wpiformatter.WpiformatterPlugin"
+            id = artifactId
+            implementationClass = "io.github.ishankarmakar.wpiformatter.WpiformatterPlugin"
         }
     }
 }
@@ -41,10 +39,35 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-publishing {
-    repositories {
-        maven {
-            url = uri(layout.buildDirectory.dir("repos/releases"))
+mavenPublishing {
+    publishToMavenCentral(automaticRelease = true)
+    signAllPublications()
+
+    coordinates(artifactId, "wpiformatter", "0.0.2")
+
+    pom {
+        name = "Wpiformatter"
+        description = "A Gradle plugin to format FRC C++ projects with wpiformat"
+        url = "https://github.com/ishan-karmakar/wpiformatter"
+        licenses {
+            license {
+                name = "The Apache License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+
+        developers {
+            developer {
+                id = "ishank"
+                name = "Ishan Karmakar"
+                url = "https://github.com/ishan-karmakar"
+            }
+        }
+        scm {
+            url = "https://github.com/ishan-karmakar/wpiformatter"
+            connection = "scm:git:git://github.com/ishan-karmakar/wpiformatter"
+            developerConnection = "scm:git:ssh://git@github.com/ishan-karmakar/wpiformatter"
         }
     }
 }
