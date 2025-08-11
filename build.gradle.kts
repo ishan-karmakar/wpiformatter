@@ -18,26 +18,36 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation(libs.junit.jupiter)
+testing {
+    suites {
+        val test by getting(JvmTestSuite::class) {
+            useJUnitJupiter("5.13.4")
+        }
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
+        val functionalTest by registering(JvmTestSuite::class) {
+            dependencies {
+                implementation(project())
+            }
 
-gradlePlugin {
-    plugins {
-        create("wpiformatter") {
-            id = artifactId
-            implementationClass = "io.github.ishankarmakar.wpiformatter.WpiformatterPlugin"
+            targets {
+                all {
+                    testTask.configure { shouldRunAfter(test) }
+                }
+            }
         }
     }
 }
 
-tasks.named<Test>("test") {
-    // Use JUnit Jupiter for unit tests.
-    useJUnitPlatform()
+gradlePlugin {
+    val wpiformatter by plugins.creating {
+        id = artifactId
+        implementationClass = "io.github.ishankarmakar.wpiformatter.WpiformatterPlugin"
+    }
+
+    testSourceSet(sourceSets["functionalTest"])
 }
+
+tasks.named("check") { dependsOn(tasks.named("functionalTest")) }
 
 mavenPublishing {
     publishToMavenCentral(automaticRelease = true)
