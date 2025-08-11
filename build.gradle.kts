@@ -25,6 +25,7 @@ testing {
         }
 
         val functionalTest by registering(JvmTestSuite::class) {
+            useJUnitJupiter("5.13.4")
             dependencies {
                 implementation(project())
             }
@@ -53,7 +54,7 @@ mavenPublishing {
     publishToMavenCentral(automaticRelease = true)
     signAllPublications()
 
-    coordinates(artifactId, "wpiformatter", "0.0.2")
+    coordinates(artifactId, "wpiformatter", "0.0.3")
 
     pom {
         name = "Wpiformatter"

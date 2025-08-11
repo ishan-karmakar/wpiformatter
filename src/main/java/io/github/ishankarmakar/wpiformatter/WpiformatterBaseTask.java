@@ -8,6 +8,7 @@ import java.util.Objects;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskAction;
+import org.gradle.internal.os.OperatingSystem;
 import org.gradle.process.ExecOperations;
 
 abstract class WpiformatterBaseTask extends DefaultTask {
@@ -35,7 +36,10 @@ abstract class WpiformatterBaseTask extends DefaultTask {
         List<String> args = new ArrayList<>(Arrays.asList("wpiformat", "-f"));
         for (String dir : ext.dirs)
             args.add(dir);
-        args.addAll(Arrays.asList("-compile-commands", ext.compileCommandsPath));
+        args.addAll(Arrays.asList(
+            "-compile-commands", ext.compileCommandsPath,
+            OperatingSystem.current().isWindows() ? "-tidy-all" : "-tidy-changed"
+        ));
 
         execOperations.exec(exec -> {
             exec.commandLine(args);
