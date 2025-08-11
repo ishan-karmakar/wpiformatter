@@ -54,7 +54,7 @@ mavenPublishing {
     publishToMavenCentral(automaticRelease = true)
     signAllPublications()
 
-    coordinates(artifactId, "wpiformatter", "0.0.3")
+    coordinates(artifactId, "wpiformatter", "0.0.4")
 
     pom {
         name = "Wpiformatter"
