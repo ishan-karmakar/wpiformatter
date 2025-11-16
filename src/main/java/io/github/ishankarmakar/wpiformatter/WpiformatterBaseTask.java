@@ -32,7 +32,10 @@ abstract class WpiformatterBaseTask extends DefaultTask {
             return;
         }
 
-        List<String> args = new ArrayList<>(Arrays.asList("wpiformat", "-f"));
+        List<String> args = new ArrayList<>();
+        for (String arg : ext.scriptRunner)
+            args.add(arg);
+        args.add("-f");
         for (String dir : ext.dirs)
             args.add(dir);
         args.addAll(Arrays.asList(
