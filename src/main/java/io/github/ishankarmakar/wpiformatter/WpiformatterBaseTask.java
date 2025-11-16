@@ -12,9 +12,11 @@ import org.gradle.process.ExecOperations;
 
 abstract class WpiformatterBaseTask extends DefaultTask {
     protected ExecOperations execOperations;
+    private boolean ignoreExitValue;
 
-    WpiformatterBaseTask(ExecOperations execOperations) {
+    WpiformatterBaseTask(ExecOperations execOperations, boolean ignoreExitValue) {
         this.execOperations = execOperations;
+        this.ignoreExitValue = ignoreExitValue;
         setGroup("Formatting");
     }
 
@@ -43,7 +45,7 @@ abstract class WpiformatterBaseTask extends DefaultTask {
 
         execOperations.exec(exec -> {
             exec.commandLine(args);
-            exec.setIgnoreExitValue(true);
+            exec.setIgnoreExitValue(ignoreExitValue);
         });
     }
 }

@@ -8,7 +8,7 @@ import org.gradle.process.ExecOperations;
 abstract class WpiformatterLintTask extends WpiformatterBaseTask {
     @Inject
     public WpiformatterLintTask(ExecOperations execOperations) {
-        super(execOperations);
+        super(execOperations, true);
         setDescription("Formats the target directories with wpiformat, but RESTORES CHANGES");
     }
 
