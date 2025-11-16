@@ -8,7 +8,7 @@
 plugins {
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     `java-gradle-plugin`
-    id("com.vanniktech.maven.publish") version "0.34.0"
+    id("com.vanniktech.maven.publish") version "0.35.0"
 }
 
 val artifactId = "io.github.ishan-karmakar.wpiformatter"
@@ -21,11 +21,11 @@ repositories {
 testing {
     suites {
         val test by getting(JvmTestSuite::class) {
-            useJUnitJupiter("5.13.4")
+            useJUnitJupiter("6.0.1")
         }
 
         val functionalTest by registering(JvmTestSuite::class) {
-            useJUnitJupiter("5.13.4")
+            useJUnitJupiter("6.0.1")
             dependencies {
                 implementation(project())
             }
@@ -54,7 +54,7 @@ mavenPublishing {
     publishToMavenCentral(automaticRelease = true)
     signAllPublications()
 
-    coordinates(artifactId, "wpiformatter", "0.0.4")
+    coordinates(artifactId, "wpiformatter", "1.0.0")
 
     pom {
         name = "Wpiformatter"
