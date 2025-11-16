@@ -59,6 +59,7 @@ mavenPublishing {
     pom {
         name = "Wpiformatter"
         description = "A Gradle plugin to format FRC C++ projects with wpiformat"
+        inceptionYear = "2025"
         url = "https://github.com/ishan-karmakar/wpiformatter"
         licenses {
             license {
